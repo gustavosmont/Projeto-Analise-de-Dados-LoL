@@ -5,4 +5,4 @@ print("vinicin gostoso")
 file = "datasetLoL\\kills.csv"
 dataset = pd.read_csv(file, header=0)
 print(dataset.columns)
-
+print(dataset)
