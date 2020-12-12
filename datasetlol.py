@@ -4,6 +4,5 @@ print("teste comit do vinição")
 print("vinicin gostoso")
 file = "datasetLoL\\kills.csv"
 dataset = pd.read_csv(file, header=0)
-print(dataset.columns)
-print(dataset.Time)
+print(dataset.head())
 
