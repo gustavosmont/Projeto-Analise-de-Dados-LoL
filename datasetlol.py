@@ -20,20 +20,30 @@ matchup['Suporte']=np.concatenate((dataset.redSupportChamp,dataset.blueSupportCh
 matchup.head(10)
 
 #Problema 2: Match-up com os Campeões mais utilizados pela PAIN Gaming
+top_pain=matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Top.describe()
+jungle_pain=matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Jungle.describe()
+mid_pain=matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Mid.describe()
+adc_pain=matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].ADC.describe()
+suporte_pain=matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Suporte.describe()
 print("Campeões mais Utilizados pela PAIN Gaming:")
-print("Top:",(matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Top.describe().top),"||",
-      "Jungle:",(matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Jungle.describe().top),"||",
-      "Mid:",(matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Mid.describe().top),"||",
-      "ADC:",(matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].ADC.describe().top),"||",
-      "Suporte:",(matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Suporte.describe().top))
+print("Top:",top_pain.top,"->","{:.2f}".format((top_pain.freq/top_pain['count'])*100),"%","||",
+      "Jungle:",jungle_pain.top,"->","{:.2f}".format((jungle_pain.freq/jungle_pain['count'])*100),"%","||",
+      "Mid:",mid_pain.top,"->","{:.2f}".format((mid_pain.freq/mid_pain['count'])*100),"%","||",
+      "ADC:",adc_pain.top,"->","{:.2f}".format((adc_pain.freq/adc_pain['count'])*100),"%","||",
+      "Suporte:",suporte_pain.top,"->","{:.2f}".format((suporte_pain.freq/suporte_pain['count'])*100),"%",)
 
 #Problema 3: Match-up com os Campeões mais utilizados pela SKT T1
 print("\nCampeões mais Utilizados pela SKT T1:")
-print("Top:",(matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].Top.describe().top),"||",
-      "Jungle:",(matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].Jungle.describe().top),"||",
-      "Mid:",(matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].Mid.describe().top),"||",
-      "ADC:",(matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].ADC.describe().top),"||",
-      "Suporte:",(matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].Suporte.describe().top))
+top_skt=matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].Top.describe()
+jungle_skt=matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].Jungle.describe()
+mid_skt=matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].Mid.describe()
+adc_skt=matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].ADC.describe()
+suporte_skt=matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].Suporte.describe()
+print("Top:",top_skt.top,"->","{:.2f}".format((top_skt.freq/top_skt['count'])*100),"%","||",
+      "Jungle:",jungle_skt.top,"->","{:.2f}".format((jungle_skt.freq/jungle_skt['count'])*100),"%","||",
+      "Mid:",mid_skt.top,"->","{:.2f}".format((mid_skt.freq/mid_skt['count'])*100),"%","||",
+      "ADC:",adc_skt.top,"->","{:.2f}".format((adc_skt.freq/adc_skt['count'])*100),"%","||",
+      "Suporte:",suporte_skt.top,"->","{:.2f}".format((suporte_skt.freq/suporte_skt['count'])*100),"%",)
 
 # Estilizando os gráficos
 sns.set_style("darkgrid", {"axes.facecolor": ".9"})
