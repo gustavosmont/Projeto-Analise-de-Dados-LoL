@@ -51,7 +51,7 @@ sns.set_style("darkgrid", {"axes.facecolor": ".9"})
 #Problema 4: Match-up com os Campeões mais utilizados em todo o Competitivo de LoL (2015 a 2018)
 champions = [matchup.Top.describe().top,matchup.Jungle.describe().top,matchup.Mid.describe().top,matchup.ADC.describe().top,matchup.Suporte.describe().top]
 picks = [matchup.Top.describe().freq,matchup.Jungle.describe().freq,matchup.Mid.describe().freq,matchup.ADC.describe().freq,matchup.Suporte.describe().freq]
-sns.barplot(champions, picks)
+sns.barplot(champions, picks, palette="Set2")
 plt.title("Campeões mais Utilizados", fontsize=12)
 plt.xlabel("Campeões por Lane (Top/Jungle/Mid/ADC/Sup)", fontsize=11)
 plt.ylabel("Quantidade de Picks", fontsize=11)
