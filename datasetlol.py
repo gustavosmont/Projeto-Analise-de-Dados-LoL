@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import seaborn as sns
 #Acessando o dataset padrão
 file = "datasetLoL\\matchinfo.csv"
 dataset = pd.read_csv(file)
@@ -35,27 +35,37 @@ print("Top:",(matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup
       "ADC:",(matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].ADC.describe().top),"||",
       "Suporte:",(matchup[(matchup.Liga == 'LCK') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'SKT')].Suporte.describe().top))
 
+# Estilizando os gráficos
+sns.set_style("darkgrid", {"axes.facecolor": ".9"})
+
 #Problema 4: Match-up com os Campeões mais utilizados em todo o Competitivo de LoL (2015 a 2018)
 champions = [matchup.Top.describe().top,matchup.Jungle.describe().top,matchup.Mid.describe().top,matchup.ADC.describe().top,matchup.Suporte.describe().top]
 picks = [matchup.Top.describe().freq,matchup.Jungle.describe().freq,matchup.Mid.describe().freq,matchup.ADC.describe().freq,matchup.Suporte.describe().freq]
-plt.bar(champions,picks,color="red")
-plt.title("Campeões mais Utilizados")
-plt.xlabel("Campeões por Lane (Top/Jungle/Mid/ADC/Sup)")
-plt.ylabel("Quantidade de Picks")
+sns.barplot(champions, picks)
+plt.title("Campeões mais Utilizados", fontsize=12)
+plt.xlabel("Campeões por Lane (Top/Jungle/Mid/ADC/Sup)", fontsize=11)
+plt.ylabel("Quantidade de Picks", fontsize=11)
 plt.show()
 
 #Problema 5: Tempo médio de partida por liga
-dataset.groupby('League').gamelength.mean().plot(kind='bar')
-plt.title('Tempo médio de partida por liga')
-plt.xlabel('Ligas')
-plt.ylabel('Tempo médio em minutos')
+dataset.groupby('League').gamelength.mean().plot(kind='barh')
+plt.title('Tempo médio de partida por liga', fontsize=12)
+plt.xlabel('Tempo médio em minutos', fontsize=11)
+plt.ylabel('Ligas', fontsize=11)
 plt.show()
 
 #Problema 6: WinRate (percentual de vitórias) do lado Vermelho e lado Azul referente ao Competitivo de 2015 a 2018
 pazul = '{:2.2}'.format(dataset.bResult.mean())
 pvermelho = '{:2.2}'.format(dataset.rResult.mean())
-plt.pie([pazul,pvermelho],labels=['Lado Azul', 'Lado Vermelho'],colors=['blue', 'red'],autopct='%1.1f%%')
-plt.title('WinRate dos Lados')
+explode = (0.01, 0)
+labels=['Lado Azul', 'Lado Vermelho']
+plt.pie([pazul,pvermelho], colors=['blue', 'red'],autopct='%1.1f%%', explode=explode, startangle=50, pctdistance=1.2)
+plt.legend(labels, loc=1)
+plt.title('WinRate dos Lados',fontsize=12)
+centre_circle = plt.Circle((0,0),0.6,fc='white',linewidth=1.25)
+fig = plt.gcf()
+fig.gca().add_artist(centre_circle)
+plt.axis('equal')
 plt.show()
 
 #Problema 7: Quantidade de campeões diferentes utilizados em cada lane
@@ -64,8 +74,8 @@ jg=matchup.Jungle.describe()
 mid=matchup.Mid.describe()
 adc=matchup.ADC.describe()
 sup=matchup.Suporte.describe()
-plt.bar(['Top','Jungle','Mid','ADC','Suporte'], [top['unique'],jg['unique'],mid['unique'],adc['unique'],sup['unique']], color='red')
-plt.xlabel('Lanes')
-plt.ylabel('Quantidade de Campeões')
-plt.title('Variedade de Campeões por Lane')
+sns.barplot(['Top','Jungle','Mid','ADC','Suporte'], [top['unique'],jg['unique'],mid['unique'],adc['unique'],sup['unique']])
+plt.xlabel('Lanes',fontsize=11)
+plt.ylabel('Quantidade de Campeões',fontsize=11)
+plt.title('Variedade de Campeões por Lane',fontsize=12)
 plt.show()
