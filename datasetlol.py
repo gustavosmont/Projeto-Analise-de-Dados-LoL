@@ -20,12 +20,12 @@ matchup['Suporte']=np.concatenate((dataset.redSupportChamp,dataset.blueSupportCh
 matchup.head(10)
 
 #Problema 2: Match-up com os Campeões mais utilizados pela PAIN Gaming
+print("Campeões mais Utilizados pela PAIN Gaming:")
 top_pain=matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Top.describe()
 jungle_pain=matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Jungle.describe()
 mid_pain=matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Mid.describe()
 adc_pain=matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].ADC.describe()
 suporte_pain=matchup[(matchup.Liga == 'CBLoL') & (matchup.Ano == 2017) & (matchup.Split == 'Summer') & (matchup.Time == 'PNG')].Suporte.describe()
-print("Campeões mais Utilizados pela PAIN Gaming:")
 print("Top:",top_pain.top,"->","{:.2f}".format((top_pain.freq/top_pain['count'])*100),"%","||",
       "Jungle:",jungle_pain.top,"->","{:.2f}".format((jungle_pain.freq/jungle_pain['count'])*100),"%","||",
       "Mid:",mid_pain.top,"->","{:.2f}".format((mid_pain.freq/mid_pain['count'])*100),"%","||",
