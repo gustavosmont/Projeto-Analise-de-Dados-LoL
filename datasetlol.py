@@ -59,7 +59,7 @@ pazul = '{:2.2}'.format(dataset.bResult.mean())
 pvermelho = '{:2.2}'.format(dataset.rResult.mean())
 explode = (0.01, 0)
 labels=['Lado Azul', 'Lado Vermelho']
-plt.pie([pazul,pvermelho], colors=['blue', 'red'],autopct='%1.1f%%', explode=explode, startangle=50, pctdistance=1.2)
+plt.pie([pazul,pvermelho], colors=['blue', 'red'], autopct='%1.1f%%', explode=explode, startangle=50, pctdistance=1.2)
 plt.legend(labels, loc=1)
 plt.title('WinRate dos Lados',fontsize=12)
 centre_circle = plt.Circle((0,0),0.6,fc='white',linewidth=1.25)
