@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 df = pd.read_csv('../datasetLoL/LeagueofLegends.csv')
-df.head()
 # Import packages
 import numpy as np
 import pandas as pd
@@ -65,8 +64,9 @@ partidas['dragonsVerm'] = dsAux['rDragons'].apply(len)
 partidas['baronsVerm'] = dsAux['rBarons'].apply(len)
 partidas['heraldsVerm'] = dsAux['rHeralds'].apply(len)
 
-print(partidas[(partidas.tagAzul == 'TSM') | (partidas.tagVerm == 'TSM')].head(3))
-partidas = partidas[(partidas.tagAzul == 'TSM') | (partidas.tagVerm == 'TSM')]
+partidas = partidas[(partidas.tagAzul == 'PNG') | (partidas.tagVerm == 'PNG')]
+partidas = partidas.reset_index(drop=True)
+partidas['timeVencedor'] = np.where(partidas.resultAzul == 1, 1, 2)
 
 print(partidas)
 
