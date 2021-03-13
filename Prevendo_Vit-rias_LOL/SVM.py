@@ -39,7 +39,9 @@ Para as informações de Gold (Ouro), é utilizada a função apply(max) para qu
 o valor máximo de dinheiro que aquele determinado time alcançou naquela partida
 Para a quantidade de kills, torres, inibidores, dragões, barões e arautos, é utilizada a função apply(len)
 para obter a quantidade de ocorrências de cada coluna.
-Ou seja, se há 6 registros de torres destruídas naquela linha, então 6 torres foram destruídas no total
+Ou seja, se há 6 registros de torres destruídas naquela linha, então 6 torres foram destruídas no total.
+Além disso, para as informações de Gold, kills, torres, inibidores, dragões, barões e arautos foi utilizada a função apply(eval) 
+para converter  o tipo, pois cada linha dessa coluna contém uma list, porém essas lists vieram entre aspas, ou seja, em um tipo string.
 '''
 partidas.tagAzul = dsAux.blueTeamTag
 partidas.ResultadoAzul = dsAux.bResult
