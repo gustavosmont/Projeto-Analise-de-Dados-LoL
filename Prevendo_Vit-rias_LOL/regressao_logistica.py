@@ -10,40 +10,39 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from ast import literal_eval
+
 
 
 #Acessando o dataset padrão
 lol = "..\\datasetLoL\\LeagueofLegends.csv"
 dataset = pd.read_csv(lol)
-print (dataset['goldblue'].apply(max))
 #print(dataset.info()) #Analisando as colunas do dataset e verificando os tipos
 
-sns.set_style("darkgrid", {"axes.facecolor": ".9"})
+'''sns.set_style("darkgrid", {"axes.facecolor": ".9"})
 sns.heatmap(dataset.isnull(), yticklabels=False, cbar=False, cmap='viridis') #Verificando a presença de dados nulos
-#plt.show()
+plt.show()'''
 
-dsAux = dataset.copy(deep=True)
+dsAux = dataset.copy()
 
 #Colunas a que influenciam na vitórias de uma partida: gold, kills, towers, inhibs, dragons, barons, heralds
-
-dsAux['goldred'] = dsAux['goldred'].apply(literal_eval)
-dsAux['goldblue'] = dsAux['goldblue'].apply(literal_eval)
-dsAux['rKills'] = dsAux['rKills'].apply(literal_eval)
-dsAux['bKills'] = dsAux['bKills'].apply(literal_eval)
-dsAux['rTowers'] = dsAux['rTowers'].apply(literal_eval)
-dsAux['bTowers'] = dsAux['bTowers'].apply(literal_eval)
-dsAux['rInhibs'] = dsAux['rInhibs'].apply(literal_eval)
-dsAux['bInhibs'] = dsAux['bInhibs'].apply(literal_eval)
-dsAux['rDragons'] = dsAux['rDragons'].apply(literal_eval)
-dsAux['bDragons'] = dsAux['bDragons'].apply(literal_eval)
-dsAux['rBarons'] = dsAux['rBarons'].apply(literal_eval)
-dsAux['bBarons'] = dsAux['bBarons'].apply(literal_eval)
-dsAux['rHeralds'] = dsAux['rHeralds'].apply(literal_eval)
-dsAux['bHeralds'] = dsAux['bHeralds'].apply(literal_eval)
+print(dsAux.info())
+dsAux['goldred'] = dsAux['goldred'].apply(eval)
+dsAux['goldblue'] = dsAux['goldblue'].apply(eval)
+dsAux['rKills'] = dsAux['rKills'].apply(eval)
+dsAux['bKills'] = dsAux['bKills'].apply(eval)
+dsAux['rTowers'] = dsAux['rTowers'].apply(eval)
+dsAux['bTowers'] = dsAux['bTowers'].apply(eval)
+dsAux['rInhibs'] = dsAux['rInhibs'].apply(eval)
+dsAux['bInhibs'] = dsAux['bInhibs'].apply(eval)
+dsAux['rDragons'] = dsAux['rDragons'].apply(eval)
+dsAux['bDragons'] = dsAux['bDragons'].apply(eval)
+dsAux['rBarons'] = dsAux['rBarons'].apply(eval)
+dsAux['bBarons'] = dsAux['bBarons'].apply(eval)
+dsAux['rHeralds'] = dsAux['rHeralds'].apply(eval)
+dsAux['bHeralds'] = dsAux['bHeralds'].apply(eval)
+print(dsAux.info())
 
 partidas = pd.DataFrame()
-
 partidas['tagAzul'] = dsAux['blueTeamTag']
 partidas['resultAzul'] = dsAux['bResult']
 partidas['goldAzul'] = dsAux['goldblue'].apply(max)
@@ -53,7 +52,6 @@ partidas['inibsAzul'] = dsAux['bInhibs'].apply(len)
 partidas['dragonsAzul'] = dsAux['bDragons'].apply(len)
 partidas['baronsAzul'] = dsAux['bBarons'].apply(len)
 partidas['heraldsAzul'] = dsAux['bHeralds'].apply(len)
-
 partidas['tagVerm'] = dsAux['redTeamTag']
 partidas['resultVerm'] = dsAux['rResult']
 partidas['goldVerm'] = dsAux['goldred'].apply(max)
@@ -65,7 +63,7 @@ partidas['baronsVerm'] = dsAux['rBarons'].apply(len)
 partidas['heraldsVerm'] = dsAux['rHeralds'].apply(len)
 
 partidas = partidas[(partidas.tagAzul == 'PNG') | (partidas.tagVerm == 'PNG')]
-partidas = partidas.reset_index(drop=True)
+partidas = partidas.reset_index()
 partidas['timeVencedor'] = np.where(partidas.resultAzul == 1, 1, 2)
 
 print(partidas.head())
@@ -76,7 +74,7 @@ from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(partidas[['goldAzul','killsAzul','towersAzul','inibsAzul','dragonsAzul','baronsAzul','heraldsAzul',
                                                               'goldVerm','killsVerm','towersVerm','inibsVerm','dragonsVerm','baronsVerm','heraldsVerm']],
-                                                    partidas['timeVencedor'],test_size=0.3,random_state=42)
+                                                    partidas['timeVencedor'],test_size=0.30,random_state=42)
 #Treinando o modelo
 
 from sklearn.linear_model import LogisticRegression
