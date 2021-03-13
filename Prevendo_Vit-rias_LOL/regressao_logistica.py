@@ -1,3 +1,10 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv('../datasetLoL/LeagueofLegends.csv')
+df.head()
 # Import packages
 import numpy as np
 import pandas as pd
@@ -5,8 +12,61 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import seaborn as sns
+from ast import literal_eval
 
 
 #Acessando o dataset padrão
 lol = "..\\datasetLoL\\LeagueofLegends.csv"
 dataset = pd.read_csv(lol)
+#print(dataset.info()) #Analisando as colunas do dataset e verificando os tipos
+
+sns.set_style("darkgrid", {"axes.facecolor": ".9"})
+sns.heatmap(dataset.isnull(), yticklabels=False, cbar=False, cmap='viridis') #Verificando a presença de dados nulos
+#plt.show()
+
+dsAux = dataset.copy(deep=True)
+
+#Colunas a que influenciam na vitórias de uma partida: gold, kills, towers, inhibs, dragons, barons, heralds
+
+dsAux['goldred'] = dsAux['goldred'].apply(literal_eval)
+dsAux['goldblue'] = dsAux['goldblue'].apply(literal_eval)
+dsAux['rKills'] = dsAux['rKills'].apply(literal_eval)
+dsAux['bKills'] = dsAux['bKills'].apply(literal_eval)
+dsAux['rTowers'] = dsAux['rTowers'].apply(literal_eval)
+dsAux['bTowers'] = dsAux['bTowers'].apply(literal_eval)
+dsAux['rInhibs'] = dsAux['rInhibs'].apply(literal_eval)
+dsAux['bInhibs'] = dsAux['bInhibs'].apply(literal_eval)
+dsAux['rDragons'] = dsAux['rDragons'].apply(literal_eval)
+dsAux['bDragons'] = dsAux['bDragons'].apply(literal_eval)
+dsAux['rBarons'] = dsAux['rBarons'].apply(literal_eval)
+dsAux['bBarons'] = dsAux['bBarons'].apply(literal_eval)
+dsAux['rHeralds'] = dsAux['rHeralds'].apply(literal_eval)
+dsAux['bHeralds'] = dsAux['bHeralds'].apply(literal_eval)
+
+partidas = pd.DataFrame()
+
+partidas['tagAzul'] = dsAux['blueTeamTag']
+partidas['resultAzul'] = dsAux['bResult']
+partidas['goldAzul'] = dsAux['goldblue'].apply(max)
+partidas['killsAzul'] = dsAux['bKills'].apply(len)
+partidas['towersAzul'] = dsAux['bTowers'].apply(len)
+partidas['inibsAzul'] = dsAux['bInhibs'].apply(len)
+partidas['dragonsAzul'] = dsAux['bDragons'].apply(len)
+partidas['baronsAzul'] = dsAux['bBarons'].apply(len)
+partidas['heraldsAzul'] = dsAux['bHeralds'].apply(len)
+
+partidas['tagVerm'] = dsAux['redTeamTag']
+partidas['resultVerm'] = dsAux['rResult']
+partidas['goldVerm'] = dsAux['goldred'].apply(max)
+partidas['killsVerm'] = dsAux['rKills'].apply(len)
+partidas['towersVerm'] = dsAux['rTowers'].apply(len)
+partidas['inibsVerm'] = dsAux['rInhibs'].apply(len)
+partidas['dragonsVerm'] = dsAux['rDragons'].apply(len)
+partidas['baronsVerm'] = dsAux['rBarons'].apply(len)
+partidas['heraldsVerm'] = dsAux['rHeralds'].apply(len)
+
+print(partidas[(partidas.tagAzul == 'TSM') | (partidas.tagVerm == 'TSM')].head(3))
+partidas = partidas[(partidas.tagAzul == 'TSM') | (partidas.tagVerm == 'TSM')]
+
+print(partidas)
+
