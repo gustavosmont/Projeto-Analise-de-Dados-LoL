@@ -8,9 +8,7 @@ df.head()
 # Import packages
 import numpy as np
 import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
 import seaborn as sns
 from ast import literal_eval
 
@@ -18,6 +16,7 @@ from ast import literal_eval
 #Acessando o dataset padrão
 lol = "..\\datasetLoL\\LeagueofLegends.csv"
 dataset = pd.read_csv(lol)
+print (dataset['goldblue'].apply(max))
 #print(dataset.info()) #Analisando as colunas do dataset e verificando os tipos
 
 sns.set_style("darkgrid", {"axes.facecolor": ".9"})
