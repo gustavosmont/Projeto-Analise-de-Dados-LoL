@@ -102,7 +102,7 @@ print(classification_report(y_test, predictions))
 '''
 Por último, a matriz de confusão foi plotada em forma gráfica para melhor visualização nas linhas abaixo
 '''
-ax = sns.heatmap(confusion_matrix(y_test, predictions), annot=True, fmt='d',xticklabels=['Time Vermelho','Time Azul'], yticklabels=['Time Vermelho','Time Azul'])
+ax = sns.heatmap(confusion_matrix(y_test, predictions), annot=True, fmt='d', xticklabels=['Red Team','Blue Team'], yticklabels=['Red Team','Blue Team'])
 ax.set(xlabel = 'True Label', ylabel='Predicted')
 plt.show()
 
