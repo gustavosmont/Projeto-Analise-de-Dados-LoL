@@ -56,4 +56,25 @@ partidas = partidas[(partidas.tagAzul == 'PNG') | (partidas.tagVerm == 'PNG')]
 partidas = partidas.reset_index(drop=True)
 partidas['timeVencedor'] = np.where(partidas.resultAzul == 1, 1, 2)
 
-print(partidas)
+# print(partidas)
+
+# Divisão de Treino e Teste
+x = partidas[['goldAzul', 'killsAzul', 'towersAzul', 'inibsAzul', 'dragonsAzul', 'baronsAzul', 'heraldsAzul',
+            'goldVerm', 'killsVerm', 'towersVerm', 'inibsVerm', 'dragonsVerm', 'baronsVerm', 'heraldsVerm']]
+y = partidas['timeVencedor']
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, random_state=42)
+
+# Treino do SVC
+modelo = SVC(C=0.1, gamma=1, kernel='linear', degree=1, random_state=10)
+modelo.fit(x_train, y_train)
+
+# Aplicando o teste de parâmetros
+# params_grid = {'C': [0.1, 1, 10, 100, 1000], 'gamma': [1, 0.1, 0.01, 0.001, 0.0001], 'kernel': ['rbf', 'linear', 'sigmoid'], 'degree': [1, 3, 5, 7, 10]}
+# grid = GridSearchCV(SVC(), params_grid, refit=True, verbose=3)
+# grid.fit(x_train, y_train)
+# print(grid.best_estimator_)
+# Os parâmetros mais eficientes são SVC(C=0.1, degree=1, gamma=1, kernel='linear')
+
+# Predições
+prediction = modelo.predict(x_test)
+print(classification_report(y_test, prediction, zero_division=0))
